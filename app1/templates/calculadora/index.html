@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Calculadora
+{% endblock %}
+
+{% block container %}
+
+    <!-- emmet: meta lenguaje -->
+    <div class="row justify-content-evenly">
+        <!-- formulario -->
+        <div class="col-3">
+            <h2 t style="color: #FFFFFF">Calcule su Couta</h2><br>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="monto" class="mb-1" style="color: #FFFFFF;">Monto:</label>
+                    <input type="text" name="monto" id="monto" class="form-control" placeholder="Monto a solicitar" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tasa" class="mb-1" style="color: #FFFFFF;">Tasa:</label>
+                    <input type="text" name="tasa" id="tasa" class="form-control" placeholder="Tasa del interés" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="plazo" class="mb-1" style="color: #FFFFFF;">Plazo:</label>
+                    <input type="text" name="plazo" id="plazo" class="form-control" placeholder="Plazo en años" required>
+                </div>
+
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <input type="submit" class="btn btn-outline-success" value="Calcular Couta">
+                </div>
+                
+            </form>
+        </div>
+
+        <!-- datos -->
+        <div class="col-8">
+            <h2 style="text-align: center; color: #FFFFFF">Registro de Coutas</h2><br>
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th>Monto</th>
+                        <th>Tasa</th>
+                        <th>Plazo</th>
+                        <th>Couta mensual</th>
+                        <th>Total a pagar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in calculos %}
+                    <tr>
+                        <td>{{ p.monto }}</td>
+                        <td>{{ p.tasa }}</td>
+                        <td>{{ p.plazo }}</td>
+                        <td>{{ p.couta }}</td>
+                        <td>{{ p.total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
